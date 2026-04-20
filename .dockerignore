@@ -1,0 +1,13 @@
+.git
+.idea
+.vscode
+*.iml
+target
+node_modules
+dist
+docker-images
+**/node_modules
+**/dist
+**/build
+**/.dart_tool
+**/.gradle

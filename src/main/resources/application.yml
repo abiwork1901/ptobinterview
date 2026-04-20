@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: ptob-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:ptob}
+    username: ${DB_USER:ptob}
+    password: ${DB_PASSWORD:ptob}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:ptob-core}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  security:
+    bearer-token: ${APP_BEARER_TOKEN:local-dev-token}
+  kafka:
+    enabled: ${APP_KAFKA_ENABLED:true}
+    topic-prefix: ${APP_KAFKA_TOPIC_PREFIX:ptob}
+  trading:
+    default-quote-precision: 8
+    default-base-precision: 8
+  notes:
+    persistence: "This v4 implementation persists balances, ledger entries, cost basis, audit events, and transfers in PostgreSQL."
+    infra: "Kafka producers and consumers are fully wired for order, trade, ledger, omnibus allocation, and settlement events."

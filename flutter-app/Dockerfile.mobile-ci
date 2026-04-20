@@ -1,0 +1,10 @@
+FROM ghcr.io/cirruslabs/flutter:3.24.3
+WORKDIR /app
+
+COPY . .
+
+RUN flutter create . --platforms android && \
+    flutter pub get
+
+# CI image for generating mobile artifacts (APK/AAB) in AWS CodeBuild or GCP Cloud Build.
+ENTRYPOINT ["bash", "-lc", "flutter build apk --release && flutter build appbundle --release"]

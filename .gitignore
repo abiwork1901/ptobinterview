@@ -1,0 +1,32 @@
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+
+# Java / Maven
+target/
+*.log
+
+# Kotlin / Gradle
+.gradle/
+**/.gradle/
+build/
+**/build/
+
+# Node / React
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+*.tsbuildinfo
+
+# Flutter / Dart
+.dart_tool/
+**/.dart_tool/
+
+# Docker and local artifacts
+docker-images/*.tar
+

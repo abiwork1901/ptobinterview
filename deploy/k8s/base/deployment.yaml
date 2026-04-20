@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ptob-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ptob-service
+  template:
+    metadata:
+      labels:
+        app: ptob-service
+    spec:
+      containers:
+        - name: app
+          image: ptob/ptob-service:0.0.4
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: ptob-service-config
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ptob-db
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ptob-db
+                  key: password
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080

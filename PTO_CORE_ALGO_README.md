@@ -2,32 +2,14 @@
 
 This is the single combined core algorithm document for the PTOB project.
 
-It consolidates:
+## 1)  Shared dependencies:
 
-- `CORE_ALGORITHYM_README.MD`
-- `CORE_ALGORITM_README.md`
-- `CORE_ALGORITHM_README.md`
-
-## 1) Current State vs Target State
-
-### Current State (implemented now)
-
-- One Spring Boot deployable (`ptob-service`) in this repository.
-- Domain logic is separated into service modules/classes:
-  - `TradingService`
-  - `LedgerService`
-  - `OmnibusService`
-  - `SettlementService`
-  - `CostBasisService`
-  - `ReconciliationService`
-  - `AuditEventConsumer` / `KafkaEventPublisher`
-- Shared dependencies:
   - PostgreSQL for persistent state and audit records
   - Kafka for event publication and consumption
 
-### Target State (architecture direction)
+###(architecture direction
 
-- Split the above domain modules into independently deployable microservices:
+- Independently deployable microservices:
   - `trading-service`
   - `ledger-service`
   - `omnibus-service`
@@ -35,7 +17,7 @@ It consolidates:
   - `cost-basis-service`
   - `reconciliation-service`
   - `audit-event-service`
-- Docker image generation for these target-state services is available through the `algo-microservices` compose profile.
+- Docker image generation for these  services is available through the `algo-microservices` compose profile.
 
 ## 2) Algorithm-to-Service Mapping
 
